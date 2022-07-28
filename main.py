@@ -9,76 +9,9 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
 
+from src import movement
+from src import data_gather
 
-def move_left(t):
-    endtime = time.time() + t
-    
-    while True:
-        action.key_down(Keys.ARROW_LEFT).perform()
-    
-        if time.time() > endtime:
-            action.key_up(Keys.ARROW_LEFT).perform()
-            break    
-
-def move_right(t):
-    endtime = time.time() + t
-    
-    while True:
-        action.key_down(Keys.ARROW_RIGHT).perform()
-    
-        if time.time() > endtime:
-            action.key_up(Keys.ARROW_RIGHT).perform()
-            break    
-
-def move_up(t):
-    endtime = time.time() + t
-    
-    while True:
-        action.key_down(Keys.ARROW_UP).perform()
-    
-        if time.time() > endtime:
-            action.key_up(Keys.ARROW_UP).perform()
-            break    
-
-def move_down(t):
-    endtime = time.time() + t
-    
-    while True:
-        action.key_down(Keys.ARROW_DOWN).perform()
-    
-        if time.time() > endtime:
-            action.key_up(Keys.ARROW_DOWN).perform()
-            break    
-
-def jump_left(n):
-    for i in range(n):
-        action.send_keys(Keys.HOME)
-    time.sleep(0.1)
-
-def jump_right(n):
-    for i in range(n):
-        action.send_keys(Keys.END)
-    time.sleep(0.1)
-
-def jump_down(n):
-    for i in range(n):
-        action.send_keys(Keys.PAGE_DOWN)
-    time.sleep(0.1)
-
-def jump_up(n):
-    for i in range(n):
-        action.send_keys(Keys.PAGE_UP)
-    time.sleep(0.1)
-
-def reload_flights():
-    action.drag_and_drop_by_offset(map_body, -277, 0).perform()
-
-def list_save(data):
-    data_list = []
-    for i in range(len(data)):
-        if data[i].text != '':
-            data_list.append(data[i].text)
-    return data_list
 
 ###############################
 ####### Google Flights ########
@@ -128,11 +61,10 @@ time.sleep(3)
 #########################################
 ######### Movement accross map ##########
 #########################################
+mv = movement(driver,action)
 
-zoom = driver.find_element(By.XPATH, '/html/body/c-wiz[2]/div/div[2]/div/c-wiz/section/div/div[1]/div[1]/span/div/div/div[13]/div/div[2]/div/button[1]')
-zoom.click()
-zoom.click()
-zoom.click()
+zoom_button = driver.find_element(By.XPATH, '/html/body/c-wiz[2]/div/div[2]/div/c-wiz/section/div/div[1]/div[1]/span/div/div/div[13]/div/div[2]/div/button[1]')
+mv.zoom(zoom_button, 3)
 
 # Focus on map to move with keys
 map_body = driver.find_element(By.XPATH, '/html/body/c-wiz[2]/div/div[2]/div/c-wiz/section/div/div[1]/div[1]/span/div/div/div[2]/div[2]')
@@ -141,14 +73,13 @@ map_body.click()
 # Time to let map fully load
 time.sleep(1.5)
 
-# Movement to Portuguese islands 
-jump_left(4)
-move_left(0.7)
-time.sleep(0.1)
-jump_down(3)
+# Movement to Azores islands
+mv.jump_left(4)
+mv.move_left(0.7)
+mv.jump_down(3)
 
 # We need to click and drag, so the web can reload flights in current location
-reload_flights()
+mv.reload_flights(map_body)
 
 
 
@@ -159,36 +90,17 @@ reload_flights()
 
 time.sleep(2) # Load wait
 
-######## Destination ###########
-# Destination names gather
-flights = driver.find_elements(By.XPATH, '//h3[@class="W6bZuc YMlIz"]') 
+# Initialize lists of atributes
+destination=[]; date=[]; price=[]; scales=[]; duration=[]
+atributes = [destination, date, price, scales, duration]
 
-# Translate data to text and save in a list
-flight_list = list_save(flights)
-print(flight_list)
+# We need an empty list and the atributes XPath to define the data_gather class 
+atributes_empty = ['','','','','']
+atributes_path = ['//h3[@class="W6bZuc YMlIz"]','//div[@class="CQYfx"]','//span[@class="QB2Jof xLPuCe"]', '//span[@class="nx0jzf"]','//span[@class="Xq1DAb"]']
 
+# Initialize data gather class and data saving
+d = data_gather(driver, atributes_empty,atributes_path)
+atributes = d.save_data(atributes)
 
-########## Date ################
-date = driver.find_elements(By.XPATH, '//div[@class="CQYfx"]') 
-date_list = list_save(date)
-print(date_list)
-
-
-########## Price ###############
-price = driver.find_elements(By.XPATH, '//span[@class="QB2Jof xLPuCe"]') 
-price_list = list_save(price)
-print(price_list)
-
-
-########## Scales ##############
-scales = driver.find_elements(By.XPATH, '//span[@class="nx0jzf"]')
-scales_list = list_save(scales)
-print(scales_list)
-
-
-########## Duration ############
-duration = driver.find_elements(By.XPATH, '//span[@class="Xq1DAb"]')
-duration_list = list_save(duration)
-print(duration_list)
-
-
+for i in range(len(atributes)):
+    print(atributes[i])
