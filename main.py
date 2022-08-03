@@ -88,8 +88,6 @@ mv.reload_flights(map_body)
 ######### Data gathering ##########
 ###################################
 
-time.sleep(2) # Load wait
-
 # Initialize lists of atributes
 destination=[]; date=[]; price=[]; scales=[]; duration=[]
 atributes = [destination, date, price, scales, duration]
@@ -102,5 +100,46 @@ atributes_path = ['//h3[@class="W6bZuc YMlIz"]','//div[@class="CQYfx"]','//span[
 d = data_gather(driver, atributes_empty,atributes_path)
 atributes = d.save_data(atributes)
 
+
+
+
+####################################
+######### Sweep whole map ##########
+####################################
+
+# Spain
+time.sleep(1.5)
+mv.jump_right(2)
+mv.jump_up(1)
+mv.move_left(1)
+mv.move_down(1)
+time.sleep(0.2)
+
+mv.reload_flights(map_body)
+
+d = data_gather(driver, atributes_empty,atributes_path)
+atributes = d.save_data(atributes)
+
+
+time.sleep(1.5)
+mv.move_up(1)
+mv.move_right(1)
+mv.jump_down(1)
+mv.jump_left(2)
+time.sleep(0.2)
+
+
+mv.reload_flights(map_body)
+
+d = data_gather(driver, atributes_empty,atributes_path)
+atributes = d.save_data(atributes)
+
+
+
+
 for i in range(len(atributes)):
     print(atributes[i])
+
+
+
+input()
