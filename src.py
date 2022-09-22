@@ -90,7 +90,7 @@ class flights_data:
 
             try:
                 # self.driver.find_element(By.XPATH, '/html/body/c-wiz[2]/div/div[2]/div/c-wiz/div[2]/div/div/div[2]/div/div[2]/div[1]/button/div[1]').click()                            
-                WebDriverWait(self.driver,5).until(EC.element_to_be_clickable((By.XPATH,'/html/body/c-wiz[2]/div/div[2]/div/c-wiz/div[2]/div/div/div[2]/div/div[2]/div[1]/button/div[1]'))).click()
+                WebDriverWait(self.driver,3).until(EC.element_to_be_clickable((By.XPATH,'/html/body/c-wiz[2]/div/div[2]/div/c-wiz/div[2]/div/div/div[2]/div/div[2]/div[1]/button/div[1]'))).click()
             except:
                 pass
 
