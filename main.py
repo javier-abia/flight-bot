@@ -10,7 +10,9 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
 
 from src import movement
-from src import data_gather
+from src import flight
+from src import flights_data
+
 
 
 ###############################
@@ -96,16 +98,16 @@ atributes = [destination, date, price, scales, duration]
 atributes_empty = ['','','','','']
 atributes_path = ['//h3[@class="W6bZuc YMlIz"]','//div[@class="CQYfx"]','//span[@class="QB2Jof xLPuCe"]', '//span[@class="nx0jzf"]','//span[@class="Xq1DAb"]']
 
-# Initialize data gather class and data saving
-d = data_gather(driver, atributes_empty,atributes_path)
-atributes = d.save_data(atributes)
+# Initialize flights_data class and data saving
+fd = flights_data(driver, atributes_empty, atributes_path)
+fd.data_gather()
 
 
 
 
-####################################
-######### Sweep whole map ##########
-####################################
+# ####################################
+# ######### Sweep whole map ##########
+# ####################################
 
 # Spain
 time.sleep(1.5)
@@ -117,8 +119,7 @@ time.sleep(0.2)
 
 mv.reload_flights(map_body)
 
-d = data_gather(driver, atributes_empty,atributes_path)
-atributes = d.save_data(atributes)
+fd.data_gather()
 
 
 time.sleep(1.5)
@@ -130,15 +131,11 @@ time.sleep(0.2)
 
 
 mv.reload_flights(map_body)
+time.sleep(2)
 
-d = data_gather(driver, atributes_empty,atributes_path)
-atributes = d.save_data(atributes)
+fd.data_gather()
 
-
-
-
-for i in range(len(atributes)):
-    print(atributes[i])
+fd.show_flights()
 
 
 
