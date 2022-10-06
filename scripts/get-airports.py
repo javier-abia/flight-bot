@@ -61,7 +61,7 @@ f = f.replace(']','') # Remove ]
 f = f.replace(' ','') # Remove blank spaces
 
 # Finally, we write the data into a file
-airports_file = open('destinations.txt', 'w')
+airports_file = open('../data/destinations.txt', 'w')
 airports_file.write(f)
 airports_file.close()
 
