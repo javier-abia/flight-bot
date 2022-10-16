@@ -9,7 +9,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
 
-
+import pickle
 from flights import flight
 from flights import flights_data
 from flights import files_manage
@@ -19,8 +19,8 @@ from flights import files_manage
 # We read both destinations and departures files and put their data in a variable
 f=files_manage()
 
-destinations = f.read_file('./data/destinations.txt')
-departures = f.read_file('./data/departures.txt')
+destinations = f.read_file('./docs/data/destinations.txt')
+departures = f.read_file('./docs/data/departures.txt')
 
 
 
@@ -69,7 +69,30 @@ fd.add_departure(departures)
 ################### Data gathering ########################
 ###########################################################
 
+fm = files_manage()
+
 # Initialize flights_data class and data saving
-fd.destination_gather(destinations)
+new_data = fd.destination_gather(destinations)
+old_data = fm.get_olddata()
 
 
+
+###########################################################
+################### Comparing flights #####################
+###########################################################
+
+
+fm.compare_files()
+
+new_avalaible = fm.iata_to_flights('./docs/IATA-codes/new_avalaible.txt', new_data)
+non_avalaible = fm.iata_to_flights('./docs/IATA-codes/new_non-avalaible.txt', old_data)
+
+
+
+
+print('------------NEW-------------------')
+fd.show_flights(new_avalaible)
+print('----------NOT AVALAIBLE-----------')
+fd.show_flights(non_avalaible)
+
+fm.save_flights(new_data, new_avalaible, non_avalaible)
