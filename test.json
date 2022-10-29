@@ -1,17 +1,20 @@
-{
-  "departure": "departure",
-  "IATA": "IATA",
-  "destination": "destination",
-  "date": "date",
-  "price": "price",
-  "scales": "scales",
-  "duration": "duration"
-}{
-  "departure": "departure1",
-  "IATA": "IATA1",
-  "destination": "destination1",
-  "date": "date1",
-  "price": "price1",
-  "scales": "scales1",
-  "duration": "duration1"
-}
+[
+  {
+    "departure": "departure",
+    "IATA": "IATA",
+    "destination": "destination",
+    "date": "date",
+    "price": "price",
+    "scales": "scales",
+    "duration": "duration"
+  },
+  {
+    "departure": "departure1",
+    "IATA": "IATA1",
+    "destination": "destination1",
+    "date": "date1",
+    "price": "price1",
+    "scales": "scales1",
+    "duration": "duration1"
+  }
+]

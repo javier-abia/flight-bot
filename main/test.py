@@ -7,7 +7,9 @@ f2 = flight('departure1', 'IATA1', 'destination1', 'date1', 'price1', 'scales1',
 l = [f1,f2]
 
 with open('test.json', 'w') as fl:
-    for flight in l:
-        json.dump(flight.__dict__, fl, indent=2)
+    json.dump([i.__dict__ for i in l], fl, indent=2)
 
-        
+with open('test.json', 'r') as fl:
+    lnew = json.load(fl)
+
+print(f'{lnew[0]}\n{lnew[1]}')
