@@ -34,7 +34,6 @@ class files_manage:
         
         lold = self.read_json(fold)
         lnew = self.read_json(fnew)
-        print(f'F OLF\n{lold}')
 
         avalaible = []
         non_avalaible = []
@@ -153,9 +152,7 @@ class flights_data:
             except:
                 pass
         
-        # Save flights set in json file as dictionary
-        fm.save_json('./docs//json/new.json', self.flights_set)
-        
+        print(self.flights_set)
         return self.flights_set
 
     def show_flights(self, flights):
