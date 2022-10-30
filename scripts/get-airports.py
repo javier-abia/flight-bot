@@ -1,4 +1,5 @@
 import time
+import json
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
@@ -54,15 +55,16 @@ while i < len(f):
     else:
         i+=1
 
-# Change data format (by making it as a csv file) so it can be clean when open it later
-f = f.replace('\'', '') # Remove ''
-f = f.replace('[', '') # Remove [
-f = f.replace(']','') # Remove ]
-f = f.replace(' ','') # Remove blank spaces
+# # Change data format (by making it as a csv file) so it can be clean when open it later
+# f = f.replace('\'', '') # Remove ''
+# f = f.replace('[', '') # Remove [
+# f = f.replace(']','') # Remove ]
+# f = f.replace(' ','') # Remove blank spaces
 
-# Finally, we write the data into a file
-airports_file = open('../data/destinations.txt', 'w')
-airports_file.write(f)
-airports_file.close()
+# # Finally, we write the data into a file
+# airports_file = open('../data/destinations.txt', 'w')
+# airports_file.write(f)
+# airports_file.close()
 
-print(f)
+with open('./docs/data/destinations.json', 'w') as fl:
+    json.dump(f,fl)

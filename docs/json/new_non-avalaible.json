@@ -1,0 +1,11 @@
+[
+  {
+    "departure": "OPO",
+    "IATA": "CGN",
+    "destination": "Cologne (Germany)",
+    "date": "Fri, 13 Jan \u2013 Sun, 15 Jan",
+    "price": "\u20ac69",
+    "scales": "Non-stop",
+    "duration": "2 hrs 35 min"
+  }
+]

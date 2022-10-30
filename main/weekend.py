@@ -9,7 +9,6 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
 
-import pickle
 from flights import flight
 from flights import flights_data
 from flights import files_manage
@@ -17,10 +16,10 @@ from flights import files_manage
 
 
 # We read both destinations and departures files and put their data in a variable
-f=files_manage()
+fm = files_manage()
 
-destinations = f.read_file('./docs/data/destinations.txt')
-departures = f.read_file('./docs/data/departures.txt')
+destinations = fm.read_json('./docs/data/destinations.json')
+departures = fm.read_json('./docs/data/departures.json')
 
 
 
@@ -38,7 +37,6 @@ action = ActionChains(driver) # Define actions in driver
 
 url_google = 'https://www.google.com/'
 url_flights = f'https://www.google.com/travel/explore?q=Flights+to+Europe+from+{departures[0]}+in+the+next+6+months+round+trip&hl=en-GB'
-
 
 # First search google, just to reject all cookies, since we cant reject them when searching google flights directly
 driver.get(url_google)
@@ -69,11 +67,10 @@ fd.add_departure(departures)
 ################### Data gathering ########################
 ###########################################################
 
-fm = files_manage()
-
 # Initialize flights_data class and data saving
-new_data = fd.destination_gather(destinations)
-old_data = fm.get_olddata()
+# new_data = fd.destination_gather(destinations)
+new_data = fm.read_json('./docs/json/new.json')
+old_data = fm.read_json('./docs/json/old.json')
 
 
 
@@ -84,10 +81,8 @@ old_data = fm.get_olddata()
 
 fm.compare_files()
 
-new_avalaible = fm.iata_to_flights('./docs/IATA-codes/new_avalaible.txt', new_data)
-non_avalaible = fm.iata_to_flights('./docs/IATA-codes/new_non-avalaible.txt', old_data)
-
-
+new_avalaible = fm.read_json('./docs/json/new_avalaible.json')
+non_avalaible = fm.read_json('./docs/json/new_non-avalaible.json')
 
 
 print('------------NEW-------------------')
@@ -95,4 +90,6 @@ fd.show_flights(new_avalaible)
 print('----------NOT AVALAIBLE-----------')
 fd.show_flights(non_avalaible)
 
-fm.save_flights(new_data, new_avalaible, non_avalaible)
+
+os.remove('./docs/json/old.json')
+os.rename('./docs/json/new.json', './docs/json/old.json')

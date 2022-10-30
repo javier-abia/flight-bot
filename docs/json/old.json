@@ -1,0 +1,29 @@
+[
+  {
+    "departure": "OPO",
+    "IATA": "TIA",
+    "destination": "Tirana (Albania)",
+    "date": "Thu, 26 Jan \u2013 Sun, 29 Jan",
+    "price": "\u20ac135",
+    "scales": "1 stop",
+    "duration": "6 hrs 30 min"
+  },
+  {
+    "departure": "OPO",
+    "IATA": "CGN",
+    "destination": "Cologne (Germany)",
+    "date": "Fri, 13 Jan \u2013 Sun, 15 Jan",
+    "price": "\u20ac69",
+    "scales": "Non-stop",
+    "duration": "2 hrs 35 min"
+  },
+  {
+    "departure": "OPO",
+    "IATA": "BER",
+    "destination": "Berlin (Germany)",
+    "date": "Fri, 13 Jan \u2013 Sun, 15 Jan",
+    "price": "\u20ac111",
+    "scales": "1 stop",
+    "duration": "6 hrs"
+  }
+]
