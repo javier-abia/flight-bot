@@ -34,12 +34,12 @@ def main(duration = '1week'):
     fm = files_manage()
 
     # Define paths to files
-    des = './data/data/destinations.json'
-    dep = './data/data/departures.json'
-    new_file = './data/json/new.json'
-    old_file = './data/json/old.json'
-    avalaible_file = './data/json/new_avalaible.json'
-    non_avalaible_file = './data/json/new_non-avalaible.json'
+    des = fm.des
+    dep = fm.dep
+    new_file = fm.new_file
+    old_file = fm.old_file
+    avalaible_file = fm.avalaible_file
+    non_avalaible_file = fm.non_avalaible_file
 
 
     destinations = fm.read_json(des)

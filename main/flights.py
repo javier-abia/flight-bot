@@ -13,7 +13,12 @@ import collections
 
 class files_manage:
     def __init__(self):
-        pass
+        self.des = './data/data/destinations.json'
+        self.dep = './data/data/departures.json'
+        self.new_file = './data/json/new.json'
+        self.old_file = './data/json/old.json'
+        self.avalaible_file = './data/json/new_avalaible.json'
+        self.non_avalaible_file = './data/json/new_non-avalaible.json'
 
     def erase_file(self, file_location):
         with open(file_location, 'wb') as f:
@@ -30,16 +35,16 @@ class files_manage:
             json.dump([i.__dict__ for i in lst], f, indent=2)
 
 
-    def compare_files(self, fold = './docs/json/old.json', fnew = './docs/json/new.json', fdeleted = './docs/json/new_non-avalaible.json', favalaible = './docs/json/new_avalaible.json'):
+    def compare_files(self):
         
-        lold = self.read_json(fold)
-        lnew = self.read_json(fnew)
+        lold = self.read_json(self.old_file)
+        lnew = self.read_json(self.new_file)
 
         avalaible = []
         non_avalaible = []
 
-        self.erase_file(fdeleted)
-        self.erase_file(favalaible)
+        self.erase_file(self.non_avalaible_file)
+        self.erase_file(self.avalaible_file)
 
         for i in lold:
             if i not in lnew:
@@ -50,8 +55,8 @@ class files_manage:
                 avalaible.append(i)
         
         # Save in json file
-        with open('./docs/json/new_non-avalaible.json', 'w') as f: json.dump(non_avalaible, f, indent=2)
-        with open('./docs/json/new_avalaible.json', 'w') as f: json.dump(avalaible, f, indent=2)
+        with open(self.non_avalaible_file, 'w') as f: json.dump(non_avalaible, f, indent=2)
+        with open(self.avalaible_file, 'w') as f: json.dump(avalaible, f, indent=2)
 
 
 
