@@ -33,8 +33,17 @@ def main(duration = '1week'):
     # We read both destinations and departures files and put their data in a variable
     fm = files_manage()
 
-    destinations = fm.read_json('./docs/data/destinations.json')
-    departures = fm.read_json('./docs/data/departures.json')
+    # Define paths to files
+    des = './data/data/destinations.json'
+    dep = './data/data/departures.json'
+    new_file = './data/json/new.json'
+    old_file = './data/json/old.json'
+    avalaible_file = './data/json/new_avalaible.json'
+    non_avalaible_file = './data/json/new_non-avalaible.json'
+
+
+    destinations = fm.read_json(des)
+    departures = fm.read_json(dep)
 
 
 
@@ -82,10 +91,10 @@ def main(duration = '1week'):
 
     # Initialize flights_data class and data saving
     new_data = fd.destination_gather(destinations)
-    fm.save_json('./docs/json/new.json', new_data)
+    fm.save_json(new_file, new_data)
 
-    new_data = fm.read_json('./docs/json/new.json')
-    old_data = fm.read_json('./docs/json/old.json')
+    new_data = fm.read_json(new_file)
+    old_data = fm.read_json(old_file)
 
 
 
@@ -96,8 +105,8 @@ def main(duration = '1week'):
 
     fm.compare_files()
 
-    new_avalaible = fm.read_json('./docs/json/new_avalaible.json')
-    non_avalaible = fm.read_json('./docs/json/new_non-avalaible.json')
+    new_avalaible = fm.read_json(new_avalaible_file)
+    non_avalaible = fm.read_json(non_avalaible_file)
 
 
     print('------------NEW-------------------')
@@ -106,5 +115,5 @@ def main(duration = '1week'):
     fd.show_flights(non_avalaible)
 
 
-    os.remove('./docs/json/old.json')
-    os.rename('./docs/json/new.json', './docs/json/old.json')
+    os.remove(old_file)
+    os.rename(new_file, old_file)
