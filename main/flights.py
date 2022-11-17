@@ -13,8 +13,8 @@ import collections
 
 class files_manage:
     def __init__(self):
-        self.des = './data/data/destinations.json'
-        self.dep = './data/data/departures.json'
+        self.des = './data/initial_data/destinations.json'
+        self.dep = './data/initial_data/departures.json'
         self.new_file = './data/json/new.json'
         self.old_file = './data/json/old.json'
         self.avalaible_file = './data/json/new_avalaible.json'
