@@ -105,7 +105,7 @@ def main(duration = '1week'):
 
     fm.compare_files()
 
-    new_avalaible = fm.read_json(new_avalaible_file)
+    new_avalaible = fm.read_json(avalaible_file)
     non_avalaible = fm.read_json(non_avalaible_file)
 
 
