@@ -78,8 +78,8 @@ def main(duration = '1week'):
     ####################### Departure #########################
     ###########################################################
 
-    # Initialize class
-    fd = flights_data(driver, action)
+    # Initialize flights_data class
+    fd = flights_data(driver,action)
 
     # Add departures
     fd.add_departure(departures)
