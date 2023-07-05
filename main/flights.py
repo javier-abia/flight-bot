@@ -1,5 +1,4 @@
 import time
-import pickle
 import os
 import json
 from selenium.webdriver.common.keys import Keys
