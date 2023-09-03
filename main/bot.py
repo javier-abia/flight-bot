@@ -17,10 +17,11 @@ async def start_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     global user_id 
     user_id = update.effective_chat.id
 
-    if os.path.isdir(f'../data/{user_id}') == True:
+
+    if os.path.isdir(f'data/{user_id}') == True:
         await context.bot.send_message(chat_id=update.effective_chat.id, text="You are already registered")
     else:
-        os.mkdir(f'../data/{user_id}/')
+        os.mkdir(f'data/{user_id}/')
         await context.bot.send_message(chat_id=update.effective_chat.id, text="You have been registered in our database")
         await InlineKeyboardButton('asd', callback_data='asdsss')
     
