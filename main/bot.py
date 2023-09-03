@@ -2,9 +2,8 @@ import os
 import time
 import subprocess
 from dotenv import load_dotenv
-from telegram import Update
+from telegram import Update, InlineKeyboardButton
 from telegram.ext import filters, MessageHandler, ApplicationBuilder, CommandHandler, ContextTypes
-
 
 # We load the bot token from the .env file
 load_dotenv()
@@ -22,9 +21,8 @@ async def start_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await context.bot.send_message(chat_id=update.effective_chat.id, text="You are already registered")
     else:
         os.mkdir(f'../data/{user_id}/')
-
         await context.bot.send_message(chat_id=update.effective_chat.id, text="You have been registered in our database")
-
+        await InlineKeyboardButton('asd', callback_data='asdsss')
     
     
 
