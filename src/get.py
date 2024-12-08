@@ -53,7 +53,9 @@ def main(duration = '1week'):
     ###########################################################
 
     # Initialize driver
-    service = Service()
+    locked_chromedriver_version = "114.0.5735.90"
+
+    service = Service(ChromeDriverManager(version=locked_chromedriver_version).install())
     options = webdriver.ChromeOptions()
     options.add_argument("start-maximized")
     driver = webdriver.Chrome(service=service, options=options)
